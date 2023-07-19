@@ -12,6 +12,7 @@ let variableWidthFont
 let instructions
 let debugCorner /* output debug text in the bottom left corner of the canvas */
 
+const setName = 'ltr'
 
 function preload() {
     font = loadFont('data/consola.ttf')
@@ -32,6 +33,7 @@ function setup() {
         numpad 1 → freeze sketch</pre>`)
 
     debugCorner = new CanvasDebugCorner(5)
+    setWallpaper()
 }
 
 
@@ -60,6 +62,34 @@ function keyPressed() {
         debugCorner.visible = !debugCorner.visible
         console.log(`debugCorner visibility set to ${debugCorner.visible}`)
     }
+}
+
+
+function setWallpaper() {
+    const wallpapers = {
+        'ltr': [
+            'birthdayescape.jpg',
+            'theshire.jpg',
+            'andurilflameofthewest.jpg',
+            'gandalfthegrey.jpg',
+            'samwisegamgee.jpg',
+            'doorsofdurin.jpg',
+            'lastmarchoftheents.jpg',
+            'stingtheglintingdagger.jpg',
+            'thegreyhavens.jpg'
+        ]
+    }
+
+    const setImgArr = wallpapers[setName]
+
+    /* use the array length as a scaling factor for random's [0,1) generator */
+    const randomIndex = Math.floor(Math.random() * setImgArr.length)
+    const wallpaperFileName = setImgArr[randomIndex];
+
+    /* set the background permanently */
+    const bgURL = `url("backgrounds/${setName}/${wallpaperFileName}")`
+    select('body').style('background-image', 'linear-gradient(rgba(0,0,0,0.4),' +
+        ` rgba(0,0,0,0.4)), ${bgURL}`)
 }
 
 
