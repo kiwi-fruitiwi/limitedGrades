@@ -14,38 +14,39 @@ let debugCorner /* output debug text in the bottom left corner of the canvas */
 
 const setName = 'ltr'
 
+/* all-players data master json file */
+let allMaster
+
 function preload() {
     font = loadFont('data/consola.ttf')
     fixedWidthFont = loadFont('data/consola.ttf')
     variableWidthFont = loadFont('data/meiryo.ttf')
+
+    allMaster = loadJSON(`data/sets/${setName}/allMaster.json`)
 }
 
 
 function setup() {
-    let cnv = createCanvas(600, 300)
-    cnv.parent('#canvas')
-    colorMode(HSB, 360, 100, 100, 100)
-    textFont(font, 14)
-
-    /* initialize instruction div */
-    instructions = select('#ins')
-    instructions.html(`<pre>
-        numpad 1 → freeze sketch</pre>`)
-
-    debugCorner = new CanvasDebugCorner(5)
+    housekeeping()
     setWallpaper()
+
+    const allMasterKeys = Object.keys(allMaster)
+    for (let key of allMasterKeys) {
+        console.log(`${key}`)
+    }
 }
 
 
 function draw() {
-    background(234, 34, 24)
+    clear()
+    background(234, 34, 24, 50)
 
     /* debugCorner needs to be last so its z-index is highest */
     debugCorner.setText(`frameCount: ${frameCount}`, 2)
     debugCorner.setText(`fps: ${frameRate().toFixed(0)}`, 1)
-    debugCorner.showBottom()
+    debugCorner.showTop()
 
-    if (frameCount > 3000)
+    if (frameCount > 30000)
         noLoop()
 }
 
@@ -91,6 +92,23 @@ function setWallpaper() {
     select('body').style('background-image', 'linear-gradient(rgba(0,0,0,0.4),' +
         ` rgba(0,0,0,0.4)), ${bgURL}`)
 }
+
+
+/* set up canvas, debugCorner, instructions */
+function housekeeping() {
+    let cnv = createCanvas(1000, 500)
+    cnv.parent('#canvas')
+    colorMode(HSB, 360, 100, 100, 100)
+    textFont(font, 14)
+
+    /* initialize instruction div */
+    instructions = select('#ins')
+    instructions.html(`<pre>
+        numpad 1 → freeze sketch</pre>`)
+
+    debugCorner = new CanvasDebugCorner(5)
+}
+
 
 
 /** 🧹 shows debugging info using text() 🧹 */
