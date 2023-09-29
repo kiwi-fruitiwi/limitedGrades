@@ -2,6 +2,16 @@
  *  a basic clone of limitedGrades.com that uses 17Lands data and statistics to
  *  provide a visual layout of card win rates
  *
+ *  Eventually we'll want to create a single p5 app that has views for several
+ *  functions:
+ *  🏭 compareDraftPicks with selectable metric, data views, autocomplete: OH
+ *  or GD WR against archetype WR
+ *  🏭 topArchetypeCards
+ *  🏭 topCardsInEachColor and ColorPair
+ *  🏭 secretGoldCards + topPlayerImprovementCards
+ *  🏭 limitedGrades style rectangle card view for comparison using
+ *  selectable metric
+ *
  *  @author kiwi
  *  @date 2023.09.17
  */
@@ -14,7 +24,10 @@ let debugCorner /* output debug text in the bottom left corner of the canvas */
 
 const setName = 'ltr'
 
-/* all-players data master json file */
+/**
+ * all-players data master json file
+ * @param {Object}
+ * */
 let allMaster
 
 function preload() {
@@ -34,6 +47,17 @@ function setup() {
     for (let key of allMasterKeys) {
         console.log(`${key}`)
     }
+}
+
+
+/**
+ * Calculates the sum of two numbers.
+ * @param {number} a - The first number.
+ * @param {number} b - The second number.
+ * @returns {number} The sum of a and b.
+ */
+function addNumbers(a, b) {
+    return a + b;
 }
 
 
